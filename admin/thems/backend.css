@@ -1,0 +1,222 @@
+body{
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
+/* start login  */
+.login{
+    width: 300px;
+    margin: 100px auto;
+}
+.login h4{
+    color: #888;
+}
+.login input{
+    margin-bottom: 10px;
+}
+.login .form-control{
+    background-color: #EAEAEA !important;
+}
+/* end login */
+/* start navbar */
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #fff;
+    
+}
+.navbar-brand{
+    font-size: 1.5em;
+}
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff 
+}
+.navbar-dark .navbar-nav .nav-link {
+    font-size: 1.2em;
+}
+.navbar-toggler:focus, .navbar-toggler:hover {
+    outline: none;
+}
+/* end navber */
+/* start Home page */
+.home-stat .stat{
+    background-color: #EEE;
+    font-size: 15px;
+    padding: 20px;
+    color: #fff;
+    border-radius: 8px;
+    
+    
+}
+.home-stat .stat a{
+    color: #fff;
+    
+
+}
+.stat span{
+    display: block;
+    font-size: 60px;
+}
+.latest{
+    margin-top: 30px;
+}
+.panel-default{
+    border: 1px solid #EEE;
+    box-shadow: 0 3px 12px #ccc;
+    
+}
+.panel-body{
+    padding: 10px;
+}
+.panel-heading{
+    background-color: #EEE;
+    padding: 10px;
+}
+.home-stat .st-members{
+    background-color: #4bcffa;
+    
+}
+.home-stat .st-pending{
+    background-color: #f53b57;
+    
+}
+.home-stat .st-items{
+    background-color: #ff3f34;
+    
+}
+.home-stat .st-comments{
+    background-color: #333;
+    
+}
+.latest-user{
+    margin-bottom: 0px;
+}
+.latest-user li{
+    padding: 8px 0px;
+    overflow: hidden;
+}
+/* the button that found in the list of latest user rregisterd */
+.sp{
+    float: right;
+    padding: 3px 8px;
+}
+/* end Home page */
+/* start members page */
+.form{
+    margin: 130px auto;
+    align-items: center;
+
+
+}
+h1 {
+    font-size: 3.5rem;
+    margin: 40px 0px;
+
+}
+label{
+    font-weight: bold;
+    margin-top: 7px;
+    text-align: end;
+    font-size: 17px;
+    
+}
+.form-control{
+    position: relative;
+    padding: 20px !important;
+
+}
+@media(max-width:555px){
+    label{
+        text-align: start;
+    }
+}
+.save{
+     float: right;
+}
+@media(min-width:557px){
+    .save{
+        margin-left:15px ;
+    }
+}
+.main-table{
+    box-shadow: 0 3px 12px #ccc;
+}
+.main-table td{
+    background-color: #fff;
+    vertical-align: middle;
+}
+.main-table .btn{
+    padding: 3px 10px;
+}
+.main-table tr:first-child td{
+    background-color: #333;
+    color: #fff;
+}
+/* end members page */
+/* start category page */
+.category .cat h3{
+    margin: 0 0 10px 0;
+}
+.category .cat{
+    margin-bottom: 7px;
+    position: relative;
+    overflow: hidden;
+}
+.category .cat:hover .hidden-button .ed{
+    top: 15px;
+}
+.category .cat:hover .hidden-button .dan{
+    right: 10px;
+}
+.category .cat .hidden-button .ed{
+    -webkit-transition: all 0.5s ease-in-out  ;
+    -moz-transition: all  0.5s ease-in-out ;
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    top: -50px;
+    right: 90px;
+}
+.category .cat .hidden-button .dan{
+    -webkit-transition: all 0.5s ease-in-out  ;
+    -moz-transition: all  0.5s ease-in-out ;
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    top: 15px;
+    right: -100px;
+}
+.category .cat .hidden-button .dan{
+    transition-delay: 0.16s;
+   -webkit-transition-delay: 0.16s;
+   -moz-transition-delay: 0.16s;
+
+}
+.category .cat .hidden-button a{
+    margin-right: 5px;
+}
+.category .cat:last-child{
+    margin-bottom: 0px;
+}
+.category .cat:last-of-type ~hr{
+    display: none;
+}
+.category .cat .visibility{
+    color: #ff3f34;
+    padding: 4px 6px; 
+    margin-right: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+.category .cat .commenting{
+    color: #2c3e50;
+    padding: 4px 6px; 
+    margin-right: 10px;
+    text-align: center;
+    font-weight: 600;
+
+}
+.category .cat .ads{
+    color: #1e272e;
+    padding: 4px 6px; 
+    margin-right: 10px;
+    text-align: center;
+    font-weight: 600;
+
+}
+/* end category page */
