@@ -11,18 +11,32 @@ if(isset($_SESSION['username'])){
   include "inti.php";
     $do=isset($_GET['do'])?$_GET['do']:'mange';
     if($do=='mange'){
-        $stmt=$link->prepare("SELECT *  FROM categories");
+      //this variable sort the category depend on the ordaring 
+      $sort='ASC';
+      $sort_array=array("ASC","DESC");
+      if(isset($_GET["sort"]) && in_array($_GET["sort"],$sort_array)){
+        $sort=$_GET["sort"];
+      }
+        $stmt=$link->prepare("SELECT *  FROM categories ORDER BY ordaring $sort");
         //ececute the Query
         $stmt->execute();
         //fetch all data (fetch get you all data in an array)=>
         $rows=$stmt->fetchAll();
-        echo '<a href="categories.php?do=add">add page</a>';?>
+        ?>
         <h1 class="text-center edit-title">Manger Categories</h1>
         <div class="container category">
            <div class="panel panel-default">
                <div class="panel-heading">
-                   <i class="fa fa-calendar-alt"> Manger Categories
+                   <i class="fa fa-calendar-alt"> 
+                   Manger Categories
                    </i>
+                   <a href="categories.php?do=add" class="btn btn-primary btn-sm" style="margin-left:15px; margin-bottom:15px; float:right;"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> add Category</a>
+                   <div class="sort">
+                     ordering:
+                      <a class="<?php if($sort=='ASC'){ echo 'active'; }?>" href="?sort=ASC">ASC</a> |
+                      <a class="<?php if($sort=='DESC'){ echo 'active'; }?>" href="?sort=DESC">DESC</a>  
+                   </div>
+                   
                </div>
                <div class="panel-body">
                <ul  class="list-unstyled latest-user">
@@ -30,7 +44,7 @@ if(isset($_SESSION['username'])){
                    foreach($rows as $row){
                        echo '<div class="cat">';
                         echo "<div class='hidden-button'>";
-                           echo "<a href='#' class='btn btn-primary btn-sm ed'> <i class='fa fa-edit'></i> EDIT</a>";
+                           echo "<a href='?do=edit&userid=".$row['ID']."' class='btn btn-primary btn-sm ed'> <i class='fa fa-edit'></i> EDIT</a>";
                            echo "<a href='#' class='btn btn-danger btn-sm dan'> <i class='fa fa-close'></i> DELETE</a>";
                         echo "</div>";
                      
@@ -56,8 +70,11 @@ if(isset($_SESSION['username'])){
                    ?>
                    </ul>
                </div>
+                
 
            </div>
+           
+           
    </div>
         <?php
     }elseif($do=='add'){ ?>
@@ -191,9 +208,153 @@ if(isset($_SESSION['username'])){
     }
         echo '</div>';
     }elseif($do=='edit'){ 
-        echo "edit Page";
+      //check if the user is is_numeric number & get the integer value of it
+      $userid=(isset($_GET["userid"])&& is_numeric($_GET["userid"]))? intval($_GET["userid"]): 0;
+      //get all data depend on the user id
+      $stmt=$link->prepare('SELECT *  FROM categories WHERE ID=?  LIMIT 1');
+      $stmt->execute(array($userid));
+      //fetch all data (fetch get you all data in an array)=>
+      $row=$stmt->fetch();
+      //get the rows
+      $count=$stmt->rowCount();
+      //check if the category are exist
+      if($count>0){?>
+       <!-- show the form and all data inside the inputs -->
+       <h1 class="text-center edit-title">EDIT CATEGORY</h1>
+       <div class="container">
+          <form class="form" action="?do=update" method="POST">
+          <!-- name field -->
+          <input type="hidden" name="userid" value="<?php echo $userid?>">
+            <div class="form-group row ">
+               <label for="name" class="control-label col-sm-2">Name</label>
+               <div class="col-sm-10 ">
+                 <input type="text" name="name" class="form-control col-md-6"  required="required" placeholder="Name of the Category" autocomplete="off" value="<?php echo $row["Name"]?>">
+               </div>
+            </div>
+            <!-- Description field -->
+            <div class="form-group row">
+               <label for="description" class="control-label col-sm-2">Description</label>
+               <div class="col-sm-10">
+                 <textarea class="form-control col-md-6" rows="5" name="description" placeholder="Descripe the Category">
+                 <?php echo $row["Description"]?>
+                 </textarea>
+               </div>
+            </div>
+            <!-- Ordring field -->
+            <div class="form-group row ">
+               <label for="ordring" class="control-label col-sm-2">Ordring</label>
+               <div class="col-sm-10">
+                 <input type="text" name="ordring" class="form-control col-md-6" placeholder="the number of the category" autocomplete="off" value="<?php echo $row["Ordaring"]?>">
+               </div>
+            </div>
+            <!-- start visibility field -->
+            <div class="form-group row ">
+               <label for="visibility" class="control-label col-sm-2">Visible</label>
+               <div class="col-sm-10">
+                <div>
+                <label for="yes">vis-yes</label>
+                <input type="radio" id="yes"  name="visibility" value="0" <?php if($row["Visibility"]==0){echo 'checked';}?>>
+                  <label for="no">vis-no</label>
+                  <input type="radio" id="no" name="visibility" value="1" <?php if($row["Visibility"]==1){echo 'checked';}?>>
+                </div>
+               </div>
+            </div>
+            <!-- end  visibility field-->
+            <!-- start comment field -->
+            <div class="form-group row ">
+               <label for="" class="control-label col-sm-2">Comment</label>
+               <div class="col-sm-10">
+                <div>
+                <label for="com-yes">com-yes</label>
+                <input type="radio" id="com-yes"  name="allowComment" value="0" <?php if($row["Allow_comment"]==0){echo 'checked';}?> >
+                  <label for="com-no">com-no</label>
+                  <input type="radio" id="com-no" name="allowComment" value="1" <?php if($row["Allow_comment"]==1){echo 'checked';}?>>
+                </div>
+               </div>
+            </div>
+            <!-- end  comment field-->
+             <!-- start ads field -->
+             <div class="form-group row ">
+               <label for="" class="control-label col-sm-2">Allow Ads</label>
+               <div class="col-sm-10">
+                <div>
+                <label for="ads-yes">ads-yes</label>
+                <input type="radio" id="ads-yes"  name="allowaAds" value="0" <?php if($row["Allow_ads"]==0){echo 'checked';}?>>
+                  <label for="ads-no">ads-no</label>
+                  <input type="radio" id="ads-no" name="allowaAds" value="1" <?php if($row["Allow_ads"]==1){echo 'checked';}?>>
+                </div>
+               </div>
+            </div>
+            <!-- end  ads field-->
+             <!-- start button -->
+             <div class="form-group row">
+               <div class="save col-md-7">
+                 <input type="submit" value="EDIT" class="btn btn-primary btn-lg save">
+               </div>
+            </div>
+        
+          </form>
+        </div>
+        
+     <?php
+      }else{
+        $err= "<div class='alert alert-danger'>error there is no such id </div>";
+        redirectHome($err,"back",4);
+      }
      }elseif($do=='update'){
-        echo "update Page";
+      if($_SERVER['REQUEST_METHOD']=='POST'){
+        echo "<h1 class='text-center edit-title'>Update CATEGORY</h1>";
+        echo '<div class="container">';
+        //get all data from the form
+        $id=$_POST["userid"];
+        $name=$_POST['name'];
+        $description=$_POST['description'];
+        $ordring=$_POST['ordring'];
+        $visible=$_POST['visibility'];
+        $comment=$_POST['allowComment'];
+        $ads=$_POST['allowaAds'];
+        //validate the form
+        $formError=[];
+         if(strlen($name)>20){
+          $formError[]= '<div class="alert alert-danger">the name feild can not be more than <strong>20 charcters</strong></div>';
+         }
+        if(empty($name)){
+         $formError[]= '<div class="alert alert-danger">the user feild can not be empty please enter user name</div>';
+        }
+         //loop into the array and show the errors
+         foreach($formError as $error){
+           echo $error.'</br>';
+         }
+         if(empty($formError)){
+          $check= checkItem("Name","categories",$name);
+          if($check>0){
+            $war= '<div class="alert alert-warning">This category Is Already Exist</div>';
+            redirectHome($war,'back',5);
+        }else {
+          $stmt=$link->prepare("UPDATE categories  SET Name=?, Description =?,Ordaring=?,Visibility=? ,Allow_comment=? , Allow_ads= ? WHERE ID=? ");
+          $stmt->execute([$name,$description,$ordring,$visible,$comment,$ads,$id]);
+          // show success message
+          if($stmt->RowCount()>0){
+            $succ='<div class="alert alert-success">the data has been updated successfuly</div>';
+            redirectHome($succ,'back',3);
+          }else{
+            $err= '<div class="alert alert-warning">the data not changed at all please check your data and try agin</div>';
+            //redirect the user to the add page to change the data
+            redirectHome($err,'back',5);
+          }
+
+                }
+          }
+          }else {
+            echo '<div class="container" style="margin-top:100px;">';
+            $err="<div class='alert alert-danger'> sorry you can't browse this page directly </div>";
+            //function to redirect the user to home page after 5 second
+            redirectHome($err,'back',5);
+  echo "</div>";
+}
+
+         
+      echo '</div>';
     }elseif($do=='delete'){
         echo "delete Page";
     }

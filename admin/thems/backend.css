@@ -217,6 +217,17 @@ label{
     margin-right: 10px;
     text-align: center;
     font-weight: 600;
+     
 
+}
+.sort{
+    float: right;
+}
+.sort a{
+    color: #2c3e50;
+    text-decoration: none;
+}
+.sort .active{
+    color: #ff3f34;
 }
 /* end category page */
