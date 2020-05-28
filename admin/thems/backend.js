@@ -19,7 +19,10 @@ $(function(){
     //         $(this).after('<span class="star">*</span>');
     //     }
     // });
-
+    //view option when click on the h3
+    $('.cat h3').click(function(){
+        $(this).next('.full-option').fadeToggle();
+    })
     
    
 });

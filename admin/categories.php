@@ -30,7 +30,7 @@ if(isset($_SESSION['username'])){
                    <i class="fa fa-calendar-alt"> 
                    Manger Categories
                    </i>
-                   <a href="categories.php?do=add" class="btn btn-primary btn-sm" style="margin-left:15px; margin-bottom:15px; float:right;"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> add Category</a>
+                   <a href="categories.php?do=add" class="btn btn-primary btn-sm" style="margin-left:15px;margin-top: -3px; float:right;"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> add Category</a>
                    <div class="sort">
                      ordering:
                       <a class="<?php if($sort=='ASC'){ echo 'active'; }?>" href="?sort=ASC">ASC</a> |
@@ -51,6 +51,7 @@ if(isset($_SESSION['username'])){
                         echo "</div>";
                      
                        echo "<h3> ".$row["Name"]."</h3>";
+                       echo "<div class='full-option'>";
                        echo "<p> ";if($row["Description"]==''){
                          echo "this category has no description.";
                        }else{
@@ -66,6 +67,7 @@ if(isset($_SESSION['username'])){
                        if($row["Allow_ads"]==1){
                         echo '<span class="ads">Ads Disabled</span>';
                        }
+                       echo "</div>";
                        echo '</div>';
                        echo "<hr>";
                    }

@@ -152,7 +152,8 @@ label{
 /* end members page */
 /* start category page */
 .category .cat h3{
-    margin: 0 0 10px 0;
+    margin: 5px 0 15px 0;
+    cursor: pointer;
 }
 .category .cat{
     margin-bottom: 7px;
@@ -174,7 +175,7 @@ label{
     right: 90px;
 }
 .category .cat .hidden-button .dan{
-    -webkit-transition: all 0.5s ease-in-out  ;
+    -webkit-transition: all 0.5s ease-in-out ;
     -moz-transition: all  0.5s ease-in-out ;
     transition: all 0.5s ease-in-out;
     position: absolute;
@@ -210,6 +211,9 @@ label{
     text-align: center;
     font-weight: 600;
 
+}
+.full-option p{
+    margin-top: 10px;
 }
 .category .cat .ads{
     color: #1e272e;
