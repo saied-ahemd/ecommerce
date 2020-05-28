@@ -38,6 +38,8 @@ if(isset($_SESSION['username'])){
                    </div>
                    
                </div>
+              
+
                <div class="panel-body">
                <ul  class="list-unstyled latest-user">
                    <?php
@@ -45,7 +47,7 @@ if(isset($_SESSION['username'])){
                        echo '<div class="cat">';
                         echo "<div class='hidden-button'>";
                            echo "<a href='?do=edit&userid=".$row['ID']."' class='btn btn-primary btn-sm ed'> <i class='fa fa-edit'></i> EDIT</a>";
-                           echo "<a href='#' class='btn btn-danger btn-sm dan'> <i class='fa fa-close'></i> DELETE</a>";
+                           echo "<a href='#deleteModal' data-toggle='modal' class='btn btn-danger btn-sm dan'> <i class='fa fa-close'></i> DELETE</a>";
                         echo "</div>";
                      
                        echo "<h3> ".$row["Name"]."</h3>";
@@ -76,6 +78,26 @@ if(isset($_SESSION['username'])){
            
            
    </div>
+    <!-- modal to delete the category -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-danger">
+                    <h5 class="modal-title" style="color:#fff;">Delete Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="background-color: #eb6a6a">
+                    <p style="color:#fff;">Delete Category,Are You Sur?</p>
+                  </div>
+                  <div class="modal-footer bg-danger">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No,Close</button>
+                    <a type="button" class="btn btn-primary" href="categories.php?do=delete&userid=<?php echo $row["ID"]?>">Yes,Delete</a>
+                  </div>
+                </div>
+              </div>
+           </div>
         <?php
     }elseif($do=='add'){ ?>
         <!-- Add category page -->
@@ -356,7 +378,25 @@ if(isset($_SESSION['username'])){
          
       echo '</div>';
     }elseif($do=='delete'){
-        echo "delete Page";
+        //delete category page
+      //check if the user is is_numeric number & get the integer value of it
+      $userid=(isset($_GET["userid"])&& is_numeric($_GET["userid"]))? intval($_GET["userid"]): 0;
+      //get all data depend on the user id using itemcheck function=>
+      $check= checkItem("ID","categories.",$userid);
+      if($check>0){
+        echo "<h1 class='text-center edit-title'> DELETE Category</h1>";
+        echo "<div class='container'>";
+        $stmt=$link->prepare('DELETE  FROM categories WHERE ID=?  LIMIT 1');
+        $stmt->execute(array($userid));
+
+        $succ= '<div class="alert alert-success">the category has been Deleted  successfuly</div>';
+        redirectHome($succ,'back',3);
+        
+      }else{
+        $err= "<div class='alert alert-danger'>this category is not't exist</div>";
+        redirectHome($err,'back',5);
+      }
+      echo "</div>";
     }
     include $tmp.'footer.php';
     
