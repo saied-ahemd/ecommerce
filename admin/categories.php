@@ -166,12 +166,13 @@ if(isset($_SESSION['username'])){
                </div>
             </div>
             <!-- end  ads field-->
-             <!-- start button -->
+             <!-- start submit button -->
              <div class="form-group row">
                <div class="save col-md-7">
                  <input type="submit" value="ADD" class="btn btn-primary btn-lg save">
                </div>
             </div>
+            <!-- end submit button -->
         
           </form>
         </div>

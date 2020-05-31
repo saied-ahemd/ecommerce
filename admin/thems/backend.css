@@ -235,3 +235,12 @@ label{
     color: #ff3f34;
 }
 /* end category page */
+/* start item page */
+.select-status{
+    padding: 7px;
+    border: none;
+    box-shadow: -1px 1px 2px gray;
+    border-radius: 3px;
+    
+}
+/* end item page */

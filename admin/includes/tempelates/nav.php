@@ -10,7 +10,7 @@
         <a class="nav-link" href="categories.php">catigories</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">items</a>
+        <a class="nav-link" href="items.php">items</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">statistics</a>

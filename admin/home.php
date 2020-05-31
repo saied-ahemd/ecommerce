@@ -19,7 +19,7 @@ $re=getLatest('*','users','UserID',$thenumber);//the function that get you the l
            <div class="col-md-3"><div class="stat st-members">Total Members <span><a href="members.php"><?php echo itemCount('UserID','users') ?></a></span></div>
         </div>
            <div class="col-md-3 "><div class="stat st-pending">Pending Membe<span><a href="members.php?page=pending"><?php echo itemCountPrivate('RegStatus','users',0) ?></a></span></div></div>
-           <div class="col-md-3 "><div class="stat st-items">Total  Items <span><a href="">200</a></span></div></div>
+           <div class="col-md-3 "><div class="stat st-items">Total  Items <span><a href="items.php"><?php echo itemCount('Item_ID','items') ?></a></span></div></div>
            <div class="col-md-3 "><div class="stat st-comments">Total comments <span><a href="">30</a></span></div></div>
         </div>
    
