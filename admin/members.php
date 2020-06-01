@@ -47,42 +47,19 @@ if(isset($_SESSION['username'])){
                      echo "<td>".$row["Date"]."</td>";
                      echo "<td>
                      <a href='members.php?do=edit&userid=".$row["UserID"]."' class='btn btn-success'><i class='fa fa-edit'></i> EDIT</a>
-                     <a href='#deleteModal' data-toggle='modal' class='btn btn-danger'><i class='fa fa-close' style='position: relative;
+                     <a  href='members.php?do=delete&userid=".$row["UserID"]."' class='btn btn-danger'><i class='fa fa-close' style='position: relative;
                      top: 1px;'></i> DELETE</a>";
                      if($row["RegStatus"]==0){
                        echo "<a href='members.php?do=Activate&userid=".$row["UserID"]."' class='btn btn-primary' style='margin-left:5px'><i class='fas fa-check-circle' style='position: relative;
                        top: 1px;'></i> Activate</a>";
-
                      }
                    echo "</td>";
                 echo "</tr>";
                 }
                 ?>
-                
               </table>
-           
            </div>
            <a href="members.php?do=Add" class="btn btn-primary"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> New Member</a>
-           <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger">
-                    <h5 class="modal-title" style="color:#fff;">Delete User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body" style="background-color: #eb6a6a">
-                    <p style="color:#fff;">Delete User,Are You Sur?</p>
-                  </div>
-                  <div class="modal-footer bg-danger">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No,Close</button>
-                    <a type="button" class="btn btn-primary" href="members.php?do=delete&userid=<?php echo $row["UserID"]?>">Yes,Delete</a>
-                  </div>
-                </div>
-              </div>
-           </div>
-          
          </div> 
     <?php }
     elseif($do=='Add'){//Add members page

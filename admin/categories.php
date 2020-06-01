@@ -36,18 +36,15 @@ if(isset($_SESSION['username'])){
                       <a class="<?php if($sort=='ASC'){ echo 'active'; }?>" href="?sort=ASC">ASC</a> |
                       <a class="<?php if($sort=='DESC'){ echo 'active'; }?>" href="?sort=DESC">DESC</a>  
                    </div>
-                   
                </div>
-              
-
                <div class="panel-body">
                <ul  class="list-unstyled latest-user">
                    <?php
                    foreach($rows as $row){
                        echo '<div class="cat">';
                         echo "<div class='hidden-button'>";
-                           echo "<a href='?do=edit&userid=".$row['ID']."' class='btn btn-primary btn-sm ed'> <i class='fa fa-edit'></i> EDIT</a>";
-                           echo "<a href='#deleteModal' data-toggle='modal' class='btn btn-danger btn-sm dan'> <i class='fa fa-close'></i> DELETE</a>";
+                           echo "<a href='?do=edit&categoryid=".$row['ID']."' class='btn btn-primary btn-sm ed'> <i class='fa fa-edit'></i> EDIT</a>";
+                           echo "<a href='?do=delete&categoryid=".$row['ID']."'' class='btn btn-danger btn-sm dan'> <i class='fa fa-close'></i> DELETE</a>";
                         echo "</div>";
                      
                        echo "<h3> ".$row["Name"]."</h3>";
@@ -74,32 +71,8 @@ if(isset($_SESSION['username'])){
                    ?>
                    </ul>
                </div>
-                
-
            </div>
-           
-           
    </div>
-    <!-- modal to delete the category -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger">
-                    <h5 class="modal-title" style="color:#fff;">Delete Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body" style="background-color: #eb6a6a">
-                    <p style="color:#fff;">Delete Category,Are You Sur?</p>
-                  </div>
-                  <div class="modal-footer bg-danger">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No,Close</button>
-                    <a type="button" class="btn btn-primary" href="categories.php?do=delete&userid=<?php echo $row["ID"]?>">Yes,Delete</a>
-                  </div>
-                </div>
-              </div>
-           </div>
         <?php
     }elseif($do=='add'){ ?>
         <!-- Add category page -->
@@ -234,10 +207,10 @@ if(isset($_SESSION['username'])){
         echo '</div>';
     }elseif($do=='edit'){ 
       //check if the user is is_numeric number & get the integer value of it
-      $userid=(isset($_GET["userid"])&& is_numeric($_GET["userid"]))? intval($_GET["userid"]): 0;
+      $categoryid=(isset($_GET["categoryid"])&& is_numeric($_GET["categoryid"]))? intval($_GET["categoryid"]): 0;
       //get all data depend on the user id
       $stmt=$link->prepare('SELECT *  FROM categories WHERE ID=?  LIMIT 1');
-      $stmt->execute(array($userid));
+      $stmt->execute(array($categoryid));
       //fetch all data (fetch get you all data in an array)=>
       $row=$stmt->fetch();
       //get the rows
@@ -249,7 +222,7 @@ if(isset($_SESSION['username'])){
        <div class="container">
           <form class="form" action="?do=update" method="POST">
           <!-- name field -->
-          <input type="hidden" name="userid" value="<?php echo $userid?>">
+          <input type="hidden" name="categoryid" value="<?php echo $categoryid?>">
             <div class="form-group row ">
                <label for="name" class="control-label col-sm-2">Name</label>
                <div class="col-sm-10 ">
@@ -331,7 +304,7 @@ if(isset($_SESSION['username'])){
         echo "<h1 class='text-center edit-title'>Update CATEGORY</h1>";
         echo '<div class="container">';
         //get all data from the form
-        $id=$_POST["userid"];
+        $id=$_POST["categoryid"];
         $name=$_POST['name'];
         $description=$_POST['description'];
         $ordring=$_POST['ordring'];
@@ -383,14 +356,14 @@ if(isset($_SESSION['username'])){
     }elseif($do=='delete'){
         //delete category page
       //check if the user is is_numeric number & get the integer value of it
-      $userid=(isset($_GET["userid"])&& is_numeric($_GET["userid"]))? intval($_GET["userid"]): 0;
+      $categoryid=(isset($_GET["categoryid"])&& is_numeric($_GET["categoryid"]))? intval($_GET["categoryid"]): 0;
       //get all data depend on the user id using itemcheck function=>
-      $check= checkItem("ID","categories.",$userid);
+      $check= checkItem("ID","categories",$categoryid);
       if($check>0){
         echo "<h1 class='text-center edit-title'> DELETE Category</h1>";
         echo "<div class='container'>";
         $stmt=$link->prepare('DELETE  FROM categories WHERE ID=?  LIMIT 1');
-        $stmt->execute(array($userid));
+        $stmt->execute(array($categoryid));
 
         $succ= '<div class="alert alert-success">the category has been Deleted  successfuly</div>';
         redirectHome($succ,'back',3);
