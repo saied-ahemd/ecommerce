@@ -15,7 +15,6 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
 
 
 ?>
-
    <div class="container home-stat text-center">
         <h1 class="text-center">Home Page</h1>
         <div class="row">
@@ -26,7 +25,6 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
            <div class="col-md-3 "><div class="stat st-comments"> Denied Item <span><a href="items.php?approve=denied"><?php echo itemCountPrivate('Approve','items',0) ?></a></span></div>
            </div>
         </div>
-   
    </div>
    <div class="container latest" >
        <div class="row">
@@ -40,6 +38,7 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
                <div class="panel-body">
                <ul  class="list-unstyled latest-user">
                    <?php
+                   if(!empty($re)){
                    foreach($re as $user){
                     if($user["RegStatus"]==0){
                         echo "<a href='members.php?do=Activate&userid=".$user["UserID"]."' class='btn btn-primary' style='margin-left:5px;margin-top:7px; float:right;padding: 3px 5px; '><i class='fas fa-check-circle' style='position: relative;
@@ -48,6 +47,9 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
                       }
                        echo "<li>".$user['username']."<span class='btn btn-success sp'><i class='fa fa-edit'></i><a href='members.php?do=edit&userid=".$user["UserID"]."' style='color:#fff;text-decoration: none;'>Edit</a></span></li>";
                    }
+                }else{
+                    echo 'there is no Recorde to show';
+                }
                    ?>
                    </ul>
                </div>
@@ -64,6 +66,7 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
                <div class="panel-body">
                <ul  class="list-unstyled latest-user">
                    <?php
+                   if(!empty($it)){
                    foreach($it as $item){
                     if($item["Approve"]==0){
                         echo "<a href='items.php?do=Approve&itemid=".$item["Item_ID"]."' class='btn btn-primary' style='margin-left:5px;margin-top:7px; float:right;padding: 3px 5px; '><i class='fas fa-check-circle' style='position: relative;
@@ -72,6 +75,7 @@ $it=getLatest('*','items','Item_ID',$theLastItems);
                       }
                        echo "<li>".$item['Name']."<span class='btn btn-success sp'><i class='fa fa-edit'></i><a href='items.php?do=edit&itemid=".$item["Item_ID"]."' style='color:#fff;text-decoration: none;'>Edit</a></span></li>";
                    }
+                }
                    ?>
                    </ul>
                </div>

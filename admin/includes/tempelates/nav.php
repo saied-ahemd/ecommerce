@@ -16,6 +16,9 @@
         <a class="nav-link" href="#">statistics</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="comments.php">Comments</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="members.php">members</a>
       </li>
       <li class="nav-item">

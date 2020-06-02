@@ -22,7 +22,7 @@ if(isset($_SESSION['username'])){
       $stmt->execute();
       //fetch all data (fetch get you all data in an array)=>
       $rows=$stmt->fetchAll();
-      
+      if(!empty($rows)){
     
     ?>
     <h1 class="text-center edit-title">Manger Members</h1>
@@ -61,7 +61,10 @@ if(isset($_SESSION['username'])){
            </div>
            <a href="members.php?do=Add" class="btn btn-primary"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> New Member</a>
          </div> 
-    <?php }
+    <?php }else{
+      echo '<div class="alert alert-warning mx-auto" style="margin-top:60px; text-align:center; width:600px;">there is no recorde to show</div>';
+    }
+    }
     elseif($do=='Add'){//Add members page
       ?>
       <!-- show the form and all data inside the inputs -->

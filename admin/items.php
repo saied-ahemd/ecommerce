@@ -24,6 +24,7 @@ if(isset($_SESSION['username'])){
       $stmt->execute();
       //fetch all data (fetch get you all data in an array)=>
       $items=$stmt->fetchAll();
+      if(!empty($items)){
       
     ?>
     <h1 class="text-center edit-title">Manger Items</h1>
@@ -68,7 +69,9 @@ if(isset($_SESSION['username'])){
            </div>
            <a href="items.php?do=Add" class="btn btn-primary"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> New items</a>
          </div> 
-    <?php
+    <?php }else{
+      echo '<div class="alert alert-warning mx-auto" style="margin-top:60px; text-align:center; width:600px;">there is no recorde to show</div>';
+    }
     }elseif($do=='Add'){ ?>
     <!-- Add category page -->
     <h1 class="text-center edit-title">Add Items</h1>
@@ -378,7 +381,7 @@ if(isset($_SESSION['username'])){
         }
          //loop into the array and show the errors
          foreach($formError as $error){
-           echo $error.'</br>';
+           echo '<div class="alert alert-danger">'.$error.'</div>';
          }
          if(empty($formError)){
           $stmt=$link->prepare("UPDATE items  SET Name=?, Description =?,Price=?,Country_Made=? ,Status=? , Cat_ID= ?,Member_ID =? WHERE Item_ID =? ");
