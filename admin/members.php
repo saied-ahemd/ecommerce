@@ -17,7 +17,7 @@ if(isset($_SESSION['username'])){
         $query='AND RegStatus=0';
       }
       //get all data depend on the user group id
-      $stmt=$link->prepare("SELECT *  FROM Users WHERE GroupID!=1 $query");
+      $stmt=$link->prepare("SELECT *  FROM Users WHERE GroupID!=1 $query ORDER BY UserID DESC");
       //ececute the Query
       $stmt->execute();
       //fetch all data (fetch get you all data in an array)=>
@@ -239,6 +239,13 @@ if(isset($_SESSION['username'])){
         $err= "<div class='alert alert-danger'>error there is no such id </div>";
         redirectHome($err,"back",4);
       }
+      $stmt=$link->prepare("SELECT * FROM users WHERE username =? AND UserID !=?");
+         $stmt->execute(["abdo",14]);
+         $check=$stmt->fetch();
+         $row=$stmt->RowCount();
+         echo $check["username"];
+         echo $check["Email"];
+         echo $row;
     }elseif($do=='update'){//update page     
       if($_SERVER['REQUEST_METHOD']=='POST'){
         echo "<h1 class='text-center edit-title'>Update MEMBER</h1>";
@@ -274,19 +281,29 @@ if(isset($_SESSION['username'])){
          }
          //ceck if there is no error at all then it will proceed the operation
          if(empty($formError)){
+           //select the user where the username is = to the username that came from the form and the id is diffrent from the is that came from the form
+         $stmt=$link->prepare("SELECT * FROM users WHERE username =? AND UserID !=?");
+         $stmt->execute([$user,$id]);
+         $check=$stmt->RowCount();
+          if($check>0){
+            $war= '<div class="alert alert-warning">This User Is Already Exist</div>';
+            redirectHome($war,'back',5);
+
+          }else{
             // update in database
-        $stmt=$link->prepare("UPDATE users SET username=?, Email =?,FullName=?,password=? WHERE UserID =?");
-        $stmt->execute([$user,$email,$fullname,$pass,$id]);
+            $stmt=$link->prepare("UPDATE users SET username=?, Email =?,FullName=?,password=? WHERE UserID =?");
+            $stmt->execute([$user,$email,$fullname,$pass,$id]);
         // show success message
-        if($stmt->RowCount()>0){
-          $succ='<div class="alert alert-success">the data has been updated successfuly</div>';
-          redirectHome($succ,'back',3);
-        }else{
-          $err= '<div class="alert alert-warning">the data not changed at all please check your data and try agin</div>';
-          //redirect the user to the add page to change the data
-          redirectHome($err,'back',5);
-        }
+           if($stmt->RowCount()>0){
+                 $succ='<div class="alert alert-success">the data has been updated successfuly</div>';
+                 redirectHome($succ,'back',3);
+           }else{
+              $err= '<div class="alert alert-warning">the data not changed at all please check your data and try agin</div>';
+               //redirect the user to the add page to change the data
+              redirectHome($err,'back',5);
+          }
          }
+        }
        
       }else{
         $err= "<div class='alert alert-danger'>sorry you can't browse this page directly</div>";

@@ -19,7 +19,8 @@ if(isset($_SESSION['username'])){
       //get all data depend on the user group id
       $stmt=$link->prepare("SELECT items.*,categories.Name AS category_name,users.username AS member_name FROM items
       INNER JOIN categories ON categories.ID=items.Cat_ID
-      INNER JOIN users ON users.UserID=items.Member_ID $approve");
+      INNER JOIN users ON users.UserID=items.Member_ID $approve
+      ORDER BY 	Item_ID DESC");
       //ececute the Query
       $stmt->execute();
       //fetch all data (fetch get you all data in an array)=>
