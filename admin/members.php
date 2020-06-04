@@ -239,13 +239,6 @@ if(isset($_SESSION['username'])){
         $err= "<div class='alert alert-danger'>error there is no such id </div>";
         redirectHome($err,"back",4);
       }
-      $stmt=$link->prepare("SELECT * FROM users WHERE username =? AND UserID !=?");
-         $stmt->execute(["abdo",14]);
-         $check=$stmt->fetch();
-         $row=$stmt->RowCount();
-         echo $check["username"];
-         echo $check["Email"];
-         echo $row;
     }elseif($do=='update'){//update page     
       if($_SERVER['REQUEST_METHOD']=='POST'){
         echo "<h1 class='text-center edit-title'>Update MEMBER</h1>";
@@ -281,7 +274,7 @@ if(isset($_SESSION['username'])){
          }
          //ceck if there is no error at all then it will proceed the operation
          if(empty($formError)){
-           //select the user where the username is = to the username that came from the form and the id is diffrent from the is that came from the form
+           //select the user where the username is = to the username that came from the form and the id is diffrent from the is that came from the form mean that it will look to the all user exept the user that is came from the form
          $stmt=$link->prepare("SELECT * FROM users WHERE username =? AND UserID !=?");
          $stmt->execute([$user,$id]);
          $check=$stmt->RowCount();
