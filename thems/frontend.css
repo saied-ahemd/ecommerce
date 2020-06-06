@@ -1,0 +1,30 @@
+body{
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
+/* start upper-bar */
+.upper-bar{
+    color: green;
+}
+/* end upper-bar */
+/* start navbar */
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #fff;
+    
+}
+.navbar-brand{
+    font-size: 1.5em;
+}
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff 
+}
+.navbar-dark .navbar-nav .nav-link {
+    font-size: 1.2em;
+}
+.navbar-toggler:focus, .navbar-toggler:hover {
+    outline: none;
+}
+/* end navber */
+/* start category  */
+
+/* end category */
