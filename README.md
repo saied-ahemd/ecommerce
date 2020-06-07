@@ -1,2 +1,2 @@
 # ecommerce
-this project i great a online shope using php&amp;mysql(PDO)
+l)this project is an online shop
