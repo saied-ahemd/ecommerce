@@ -1,6 +1,10 @@
 <?php
 //includes
 include "admin/connect.php";
+$sessionUser='';
+if(isset($_SESSION['User'])){
+    $sessionUser=$_SESSION['User'];
+}
 //routes
 $tmp='includes/tempelates/';
 $lang='includes/languages/';

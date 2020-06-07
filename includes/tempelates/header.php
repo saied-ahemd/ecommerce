@@ -13,10 +13,27 @@
 <body>
     <div class="upper-bar">
         <div class="container">
-        <p>upper-bar</p>
-
+          <?php if(isset($_SESSION['User']))
+          {
+            echo "Welcome to the application   ";
+            echo '<a href="profile.php">my profile</a>';
+            echo '<a href="logout.php" class="right login">logout</a>';
+            $userStatus= checkReg($_SESSION['User']);
+            
+            if($userStatus ==1){
+              //user not active 
+              
+            }
+          }else{              
+           ?>
+        <a href="login.php">
+           <span class="right login">Login</span>
+        </a>
+        <a href="signup.php">
+           <span class="right signup">SignUP</span>
+        </a>
+        <?php } ?>
         </div>
-        
     </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <a class="navbar-brand" href="index.php">HOME</a>

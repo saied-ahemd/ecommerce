@@ -1,4 +1,11 @@
-<?php include "inti.php"; ?>
+<?php 
+session_start();
+
+$pageTitle='Categoryies';
+
+include "inti.php"; 
+
+?>
    <div class="container">
       <h1 class="text-center">
         <?php 

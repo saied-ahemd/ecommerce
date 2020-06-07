@@ -25,7 +25,15 @@ function getItems($catID){
         return 0;
     }
 }
+//function to check activate pepole
+function checkReg($user){
+    global $link;
+    $stmt=$link->prepare('SELECT username , RegStatus FROM users WHERE username=? AND 	RegStatus=0');
+    $stmt->execute(array($user));
+    $count=$stmt->rowCount();
+    return $count;
 
+}
 
 ////////////////////////////////////////////////////////////////////////
 // function that echo the page title if the page has
