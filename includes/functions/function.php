@@ -14,10 +14,10 @@ function getCAt(){
     }
 }
 //this function get the all items
-function getItems($catID){
+function getItems($where,$value){
     global $link;
-    $item=$link->prepare("SELECT * FROM `items` WHERE Cat_ID=? ORDER BY `Item_ID` DESC");
-    $item->execute(array($catID));
+    $item=$link->prepare("SELECT * FROM `items` WHERE $where=? ORDER BY `Item_ID` DESC");
+    $item->execute(array($value));
     $rows=$item->fetchAll();
     if(!empty($rows)){
         return $rows;

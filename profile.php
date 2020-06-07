@@ -9,7 +9,7 @@ if(isset($_SESSION["User"])){
     //ececute the Query
     $stmt->execute(array($sessionUser));
     //fetch all data (fetch get you all data in an array)=>
-    $rows=$stmt->fetchAll();
+    $rows=$stmt->fetch();
 
 ?>
    <h1 class="text-center text-capitalize">My Profile</h1>
@@ -20,16 +20,11 @@ if(isset($_SESSION["User"])){
                 Infromation
                </div>
                <div class="panel-body">
-                   <?php
-                   foreach($rows as $row){
-                       
-                   
-                   ?>
-                 Name: <?php echo $row["username"].'<br>'; ?>
-                 Email: <?php  echo $row["Email"].'<br>'; ?>
-                 full Name: <?php echo $row["FullName"].'<br>'; ?>
-                 Date: <?php echo $row["Date"].'<br>'; ?>
-                 Favourite Category: <?php echo $row["username"].'<br>'; } ?>
+                 Name: <?php echo $rows["username"].'<br>'; ?>
+                 Email: <?php  echo $rows["Email"].'<br>'; ?>
+                 full Name: <?php echo $rows["FullName"].'<br>'; ?>
+                 Registered Date: <?php echo $rows["Date"].'<br>'; ?>
+                 Favourite Category: <?php '<br>';  ?>
 
                </div>
            </div>
@@ -43,7 +38,32 @@ if(isset($_SESSION["User"])){
                 ADS
                </div>
                <div class="panel-body">
-              test
+                   <div class="row">
+                  <?php
+                    $items=getItems('Member_ID',$rows["UserID"]);
+                    if($items==0){
+                        echo '<div class="alert alert-warning">there is no item to show</div>';
+                    }else{
+                       foreach($items as $item){
+                           echo "<div class='col-10 col-sm-6 col-lg-4 mx-auto my-4 d-flex justify-content-between align-items-center'>";
+                              echo '<div class="card">';
+                                echo '<div class="img-container">';
+                                   echo '<img src="images/sweets-3.jpeg" alt="sweets1" class="card-img-top store-img">';
+                                   echo '<div class="card-body">';
+                                     echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
+                                        echo '<h4>'.$item["Name"].'</h4>';
+                                        echo '<h4>'.$item["Price"].'</h4>';
+                                     echo "</div>";
+                                   echo "</div>";
+                                echo "</div>";
+                              echo "</div>";
+                           echo "</div>";
+                       }
+           
+                    }
+                  
+                  ?>
+                  </div>
                </div>
 
            </div>
@@ -57,7 +77,22 @@ if(isset($_SESSION["User"])){
                 latest comments
                </div>
                <div class="panel-body">
-              rest
+                  <?php
+                     $stmt=$link->prepare("SELECT comment  FROM comments WHERE 	user_ID =? ");
+                     //ececute the Query
+                     $stmt->execute(array($rows["UserID"]));
+                     //fetch all data (fetch get you all data in an array)=>
+                     $comments=$stmt->fetchAll();
+                     if(!empty($comments)){
+                         foreach($comments as $comment){
+                             echo $comment["comment"].'<br>';
+                         }
+
+                     }else{
+                        echo '<div>there is no comments to show</div>';
+                     }
+                  
+                  ?>
                </div>
 
            </div>
