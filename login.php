@@ -9,12 +9,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $username=$_POST['username'];
     $password=$_POST['password'];
     $hash=sha1($password);
-    $stmt=$link->prepare('SELECT username , password FROM users WHERE username=? AND password=?');
+    $stmt=$link->prepare('SELECT UserID , username , password FROM users WHERE username=? AND password=?');
     $stmt->execute(array($username,$hash));
+    $get=$stmt->fetch();
     $count=$stmt->rowCount();
     //if count>0 this mean the database has record to this user 
     if($count>0){
         $_SESSION['User']=$username;//register name form the form
+        $_SESSION['uid']=$get['UserID'];//satrt seesion with id
         header('Location:index.php');//resiract the user to the main page
         exit();
     }

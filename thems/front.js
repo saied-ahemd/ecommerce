@@ -1,4 +1,4 @@
-$(function(){
+$(document).ready(function(){
     'use strict';
     
     $('[placeholder]').focus(function(){
@@ -8,12 +8,9 @@ $(function(){
     }).blur(function(){
         $(this).attr('placeholder',$(this).attr('data-text'));
     });
-    //confirm the delete member
-    // $('.confirm').click(function() {
-    //     return confirm('Are You Sure ?');
-    //   });
-    
-    
-    
-   
+    //live prveiw to the text
+    $('.live').keyup(function(){
+        //take the text you write in the input and put it in the h5 with live prveiw
+        $($(this).data('class')).text($(this).val());
+    });
 });

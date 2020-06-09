@@ -5,6 +5,10 @@ $sessionUser='';
 if(isset($_SESSION['User'])){
     $sessionUser=$_SESSION['User'];
 }
+$sessionID='';
+if(isset($_SESSION['uid'])){
+    $sessionID=$_SESSION['uid'];
+}
 //routes
 $tmp='includes/tempelates/';
 $lang='includes/languages/';

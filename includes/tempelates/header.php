@@ -18,6 +18,7 @@
             echo "Welcome to the application   ";
             echo '<a href="profile.php">my profile</a>';
             echo '<a href="logout.php" class="right login">logout</a>';
+            echo '<a href="newad.php" class="right btn btn-primary"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> New Item</a>';
             $userStatus= checkReg($_SESSION['User']);
             
             if($userStatus ==1){

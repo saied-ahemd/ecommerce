@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pageTitle='Home';
+$pageTitle='MY Profile';
 include "inti.php";
 
 if(isset($_SESSION["User"])){
@@ -42,7 +42,7 @@ if(isset($_SESSION["User"])){
                   <?php
                     $items=getItems('Member_ID',$rows["UserID"]);
                     if($items==0){
-                        echo '<div class="alert alert-warning">there is no item to show</div>';
+                        echo '<div class="alert alert-warning">there is no item to show <a href="newad.php">New ITEM </a></div>';
                     }else{
                        foreach($items as $item){
                            echo "<div class='col-10 col-sm-6 col-lg-4 mx-auto my-4 d-flex justify-content-between align-items-center'>";
@@ -53,6 +53,9 @@ if(isset($_SESSION["User"])){
                                      echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
                                         echo '<h4>'.$item["Name"].'</h4>';
                                         echo '<h4>'.$item["Price"].'</h4>';
+                                     echo "</div>";
+                                     echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
+                                        echo '<p>'.$item["Description"].'</p>';
                                      echo "</div>";
                                    echo "</div>";
                                 echo "</div>";
@@ -78,6 +81,7 @@ if(isset($_SESSION["User"])){
                </div>
                <div class="panel-body">
                   <?php
+                   
                      $stmt=$link->prepare("SELECT comment  FROM comments WHERE 	user_ID =? ");
                      //ececute the Query
                      $stmt->execute(array($rows["UserID"]));
@@ -91,7 +95,6 @@ if(isset($_SESSION["User"])){
                      }else{
                         echo '<div>there is no comments to show</div>';
                      }
-                  
                   ?>
                </div>
 

@@ -164,7 +164,7 @@ if(isset($_SESSION['username'])){
         );
         // show success message
         if($stmt->RowCount()>0){
-          $succ= '<div class="alert alert-success">the data has been inserted successfuly</div>';
+          $succ= '<div class="alert alert-success">the user has been inserted successfuly</div>';
           redirectHome($succ,'back',5);
         }
           }
