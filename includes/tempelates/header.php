@@ -46,7 +46,7 @@
       <?php
         $catecories=getCAt();
         foreach($catecories as $cat){
-            echo '<li class="nav-item"><a href="categories.php?pageid='.$cat["ID"].'&pageName='.str_replace(' ','-',$cat["Name"]).'" class="nav-link" style="margin-right:20px;">'.$cat["Name"].'</a></li>';
+            echo '<li class="nav-item"><a href="categories.php?pageid='.$cat["ID"].'" class="nav-link" style="margin-right:20px;">'.$cat["Name"].'</a></li>';
         }
       ?>
     </ul>

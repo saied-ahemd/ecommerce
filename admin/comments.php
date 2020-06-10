@@ -165,7 +165,7 @@ if(isset($_SESSION['username'])){
         //check if the user is is_numeric number & get the integer value of it
         $commentid=(isset($_GET["commentid"])&& is_numeric($_GET["commentid"]))? intval($_GET["commentid"]): 0;
         //get all data depend on the user id using itemcheck function=>
-        $check= checkItem("UserID","users",$commentid);
+        $check= checkItem("comment_ID","comments",$commentid);
         if($check>0){
           echo "<h1 class='text-center edit-title'> APPROVE COMMENT</h1>";
           echo "<div class='container'>";

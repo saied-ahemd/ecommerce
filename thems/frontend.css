@@ -185,11 +185,43 @@ margin-bottom: 50px;
 .block{
     margin-top: 50px;
 }
+.date{
+    text-align: right;
+    color: #AAA;
+    font-size: 13px;
+
+}
 /* end profille page */
 /* start signup page */
 .errors{
     margin-top: 70px;
     width: 920px;
+    
 }
 
 /* end signup page */
+/* start show item page */
+.add-comment h4{
+    margin-bottom: 10px;
+}
+.add-comment textarea{
+    margin-bottom: 10px;
+    width: 500px;
+    height: 150px;
+    padding: 10px;
+}
+.comment-box img{
+    max-width: 100px;
+    margin-top: 15px;
+}
+.comment{
+    padding: 12px;
+    background-color: rgb(236, 234, 234);
+    border-radius: 30px;
+    max-width:150px ;
+}
+.comment .comment-name{
+    font-weight: bold;
+    font-size: 18px;
+}
+/* end show item page */

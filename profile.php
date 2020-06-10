@@ -2,7 +2,6 @@
 session_start();
 $pageTitle='MY Profile';
 include "inti.php";
-
 if(isset($_SESSION["User"])){
 
     $stmt=$link->prepare("SELECT *  FROM users WHERE username=?");
@@ -24,7 +23,7 @@ if(isset($_SESSION["User"])){
                  Email: <?php  echo $rows["Email"].'<br>'; ?>
                  full Name: <?php echo $rows["FullName"].'<br>'; ?>
                  Registered Date: <?php echo $rows["Date"].'<br>'; ?>
-                 Favourite Category: <?php '<br>';  ?>
+                 Favourite Category: <?php '<br>'; ?>
 
                </div>
            </div>
@@ -51,11 +50,14 @@ if(isset($_SESSION["User"])){
                                    echo '<img src="images/sweets-3.jpeg" alt="sweets1" class="card-img-top store-img">';
                                    echo '<div class="card-body">';
                                      echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
-                                        echo '<h4>'.$item["Name"].'</h4>';
+                                     echo '<h4> <a href="deItems.php?itemid='.$item["Item_ID"].'">'.$item["Name"].'</a> </h4>';
                                         echo '<h4>'.$item["Price"].'</h4>';
                                      echo "</div>";
                                      echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
                                         echo '<p>'.$item["Description"].'</p>';
+                                     echo "</div>";
+                                     echo '<div>'; 
+                                        echo '<div class="date">'.$item["Add_Date"].'</div>';
                                      echo "</div>";
                                    echo "</div>";
                                 echo "</div>";
