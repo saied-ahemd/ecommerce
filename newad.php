@@ -114,11 +114,9 @@ if(isset($_SESSION["User"])){
                             <select class=" col-md-9 select-status" name="category" required>
                                 <option value="0">....</option>
                                 <?php 
-                                $stmt=$link->prepare("SELECT * FROM categories");
-                                $stmt->execute();
-                                $Users=$stmt->fetchAll();
-                                foreach($Users as $user){
-                                    echo "<option value='".$user["ID"]."'> ".$user["Name"]." </option>";
+                                $cats= getAll("categories");
+                                foreach($cats as $cat){
+                                    echo "<option value='".$cat["ID"]."'> ".$cat["Name"]." </option>";
                                 }
                                 ?>
                             </select>

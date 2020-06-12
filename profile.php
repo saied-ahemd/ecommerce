@@ -23,7 +23,8 @@ if(isset($_SESSION["User"])){
                  Email: <?php  echo $rows["Email"].'<br>'; ?>
                  full Name: <?php echo $rows["FullName"].'<br>'; ?>
                  Registered Date: <?php echo $rows["Date"].'<br>'; ?>
-                 Favourite Category: <?php '<br>'; ?>
+                 Favourite Category: <?php echo '<br>'; ?>
+                 <a href="" class="btn btn-secondary">Edit Infromation </a>
 
                </div>
            </div>

@@ -214,6 +214,9 @@ margin-bottom: 50px;
     background-color: #b85a5a;
     font-weight: bold;
 }
+.infromation .btn{
+    margin-top: 10px;
+}
 /* end profille page */
 /* start signup page */
 .errors{
@@ -248,3 +251,13 @@ margin-bottom: 50px;
     font-size: 18px;
 }
 /* end show item page */
+/* start index page */
+.all{
+    margin-top: 80px;
+}
+@media (max-width:575px){
+    .cart{
+       margin: 5px auto;
+    }
+}
+/* end index page */

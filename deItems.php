@@ -39,7 +39,6 @@ include "inti.php";
                     <h5>Made in: <?php echo $row["Country_Made"]?></h5>
                     <h5>Added By:  <?php echo $row["memberName"]?></h5>
                     <h5>Category Name:<a href="categories.php?pageid=<?php echo $row["Cat_ID"]?> "> <?php echo $row["categoryName"]?> </a></h5>
-
             </div>
             </div>
             <!-- end roe one  -->

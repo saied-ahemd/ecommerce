@@ -1,7 +1,20 @@
 <?php
+// this function get all the data in the table you choose
+function getAll($name,$order=NULL){
+    if($order==NULL){
+        $query='';
+    }else{
+        $query='ORDER BY '.$order.' DESC';
+    }
+    global $link;
+    $getAll=$link->prepare("SELECT * FROM `$name` WHERE Approve=1 $query ");
+    $getAll->execute(array());
+    $rows=$getAll->fetchAll();
+    return $rows;
+
+}
+
 // this function get the categories
-
-
 function getCAt(){
     global $link;
     $cat=$link->prepare("SELECT * FROM `categories` ORDER BY `Ordaring` ASC");
