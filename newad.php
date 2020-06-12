@@ -19,7 +19,7 @@ if(isset($_SESSION["User"])){
             $formError[]= 'the Name feild can not be empty please enter item name';
           }if(strlen($filterdName)>20){
             $formError[]= 'the name feild can not be more than<strong> 20 charcters</strong>';
-          }if(strlen($filterdName)<20){
+          }if(strlen($description)<10){
             $formError[]= 'the description feild can not be less than<strong> 10 charcters</strong>';
           }
           if(empty($price)){
@@ -74,7 +74,7 @@ if(isset($_SESSION["User"])){
                         <div class="form-group row">
                         <label for="description" class="control-label col-sm-2">Description</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control col-md-9 live" rows="5" name="description" required="required" data-class=".live-des" placeholder="Descripe the Category"></textarea>
+                            <textarea class="form-control col-md-9 live" rows="5" name="description" required="required" data-class=".live-des" placeholder="Descripe the Category" minlength="10"></textarea>
                         </div>
                         </div>
                         <!-- price field -->
@@ -97,7 +97,7 @@ if(isset($_SESSION["User"])){
                         <div class="form-group row ">
                         <label for="Status" class="control-label col-sm-2">Status</label>
                         <div class="col-sm-10">
-                            <select class=" col-md-9 select-status" name="status">
+                            <select class=" col-md-9 select-status" name="status" required>
                                 <option value="0">....</option>
                                 <option value="1">New</option>
                                 <option value="2"> Like New</option>
@@ -111,7 +111,7 @@ if(isset($_SESSION["User"])){
                             <div class="form-group row ">
                         <label for="Status" class="control-label col-sm-2">Category</label>
                         <div class="col-sm-10">
-                            <select class=" col-md-9 select-status" name="category">
+                            <select class=" col-md-9 select-status" name="category" required>
                                 <option value="0">....</option>
                                 <?php 
                                 $stmt=$link->prepare("SELECT * FROM categories");

@@ -14,17 +14,20 @@
     <div class="upper-bar">
         <div class="container">
           <?php if(isset($_SESSION['User']))
-          {
-            echo "Welcome to the application   ";
-            echo '<a href="profile.php">my profile</a>';
-            echo '<a href="logout.php" class="right login">logout</a>';
-            echo '<a href="newad.php" class="right btn btn-primary"> <i class="fa fa-plus" style="position: relative;top: 1px;"></i> New Item</a>';
-            $userStatus= checkReg($_SESSION['User']);
-            
-            if($userStatus ==1){
-              //user not active 
-              
-            }
+          {?>
+          <div class="btn-group my-info ">
+          <img src="images/sweets-3.jpeg" alt="sweets1" class="card-img-top store-img rounded-circle img-thumbnail">
+            <span class="btn dropdown-toggle" data-toggle="dropdown">
+              <?php echo $_SESSION['User'] ?>
+            </span>
+            <ul class="dropdown-menu">
+              <li><a href="profile.php" class="dropdown-item">My Profile</a></li>
+              <li><a href="newad.php" class="dropdown-item">Add Item</a></li>
+              <li><a href="profile.php#my-ads" class="dropdown-item">My Items</a></li>
+              <li><a href="logout.php" class="dropdown-item">Log Out</a></li>
+            </ul>
+          </div>
+          <?php
           }else{              
            ?>
         <a href="login.php">

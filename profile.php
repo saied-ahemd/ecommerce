@@ -30,16 +30,16 @@ if(isset($_SESSION["User"])){
       </div>
   </div>
   
-  <div class="ads block">
+  <div class="ads block" id="my-ads">
       <div class="container">
       <div class="panel panel-default">
                <div class="panel-heading">
-                ADS
+                My Items
                </div>
                <div class="panel-body">
                    <div class="row">
                   <?php
-                    $items=getItems('Member_ID',$rows["UserID"]);
+                    $items=getItems('Member_ID',$rows["UserID"],'s');
                     if($items==0){
                         echo '<div class="alert alert-warning">there is no item to show <a href="newad.php">New ITEM </a></div>';
                     }else{
@@ -47,7 +47,11 @@ if(isset($_SESSION["User"])){
                            echo "<div class='col-10 col-sm-6 col-lg-4 mx-auto my-4 d-flex justify-content-between align-items-center'>";
                               echo '<div class="card">';
                                 echo '<div class="img-container">';
+                                if($item["Approve"]==0){
+                                    echo '<div class="approve">Waiting For Approve</div>';
+                                }
                                    echo '<img src="images/sweets-3.jpeg" alt="sweets1" class="card-img-top store-img">';
+                                  
                                    echo '<div class="card-body">';
                                      echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
                                      echo '<h4> <a href="deItems.php?itemid='.$item["Item_ID"].'">'.$item["Name"].'</a> </h4>';
@@ -56,7 +60,7 @@ if(isset($_SESSION["User"])){
                                      echo '<div class="card-text d-flex justify-content-between text-capitalize align-items-center">'; 
                                         echo '<p>'.$item["Description"].'</p>';
                                      echo "</div>";
-                                     echo '<div>'; 
+                                     echo '<div class="">';
                                         echo '<div class="date">'.$item["Add_Date"].'</div>';
                                      echo "</div>";
                                    echo "</div>";

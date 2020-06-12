@@ -14,9 +14,15 @@ function getCAt(){
     }
 }
 //this function get the all items
-function getItems($where,$value){
+function getItems($where,$value,$approve=NULL){
+
     global $link;
-    $item=$link->prepare("SELECT * FROM `items` WHERE $where=? ORDER BY `Item_ID` DESC");
+    if($approve == NULL){
+        $query='AND Approve = 1';
+    }else{
+        $query=NULL;
+    }
+    $item=$link->prepare("SELECT * FROM `items` WHERE $where=? $query ORDER BY `Item_ID` DESC");
     $item->execute(array($value));
     $rows=$item->fetchAll();
     if(!empty($rows)){

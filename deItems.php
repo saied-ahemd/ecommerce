@@ -13,7 +13,7 @@ include "inti.php";
                                             categories ON categories.ID =items.Cat_ID
                                             INNER JOIN 
                                             users ON users.UserID=items.Member_ID
-                                        WHERE  Item_ID=? ');
+                                        WHERE  Item_ID=? AND Approve=1 ');
         $stmt->execute(array($itemid));
         //fetch all data (fetch get you all data in an array)=>
         $row=$stmt->fetch();
@@ -54,7 +54,7 @@ include "inti.php";
                 <div class="add-comment">
                     <h4>Add Comment</h4>
                     <form action="<?php echo $_SERVER['PHP_SELF'] .'?itemid='.$row["Item_ID"]?>" method="POST">
-                    <textarea name="comment"></textarea>
+                    <textarea name="comment" required></textarea>
                     <input type="submit" class="btn btn-primary" value="Add Comment">
                     </form>
                     <?php
@@ -129,7 +129,7 @@ include "inti.php";
 <?php
  }
     else{
-        $err= "<div class='alert alert-danger'>error there is no such id </div>";
+        $err= "<div class='alert alert-danger'>error there is no such id Or the item is not aprroved Yet </div>";
         redirectHome($err,"back",3);
     }
 include $tmp.'footer.php';

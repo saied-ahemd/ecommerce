@@ -2,9 +2,9 @@
 session_start();
 $pageTitle='Home';
 include "inti.php";
+?>
+    
 
- echo "welcom to home page ".$sessionUser;
-
- 
+ <?php
  include $tmp.'footer.php';
 ?>

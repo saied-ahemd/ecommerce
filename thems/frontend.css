@@ -9,6 +9,9 @@ h1 {
 
 }
 /* start upper-bar */
+.container, .container-md, .container-sm {
+    max-width: 1800px;
+}
 .upper-bar{
     padding: 10px;
 }
@@ -16,7 +19,7 @@ h1 {
     float: right;
 }
 .upper-bar .login{
-    background-color:#4a06a8 ;
+    background-color:#4a06a8;
     width: 80px;
     border-radius: 30px;
     padding: 7px;
@@ -35,8 +38,16 @@ h1 {
     text-align: center;
     margin-left: 15px;
 }
-
-
+.upper-bar .my-info img{
+    width: 45px;
+    height: 45px;
+}
+.btn-group > .btn:not(:first-child) {
+    margin-left: -6px;
+}
+.btn-group, .btn-group-vertical {
+    float: right;
+}
 /* end upper-bar */
 /* start navbar */
 .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
@@ -190,6 +201,18 @@ margin-bottom: 50px;
     color: #AAA;
     font-size: 13px;
 
+}
+.img-container{
+    position: relative;
+}
+.approve{
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    padding: 3px 5px;
+    color: #FFF;
+    background-color: #b85a5a;
+    font-weight: bold;
 }
 /* end profille page */
 /* start signup page */
