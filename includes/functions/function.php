@@ -15,9 +15,10 @@ function getAll($name,$order=NULL){
 }
 
 // this function get the categories
-function getCAt(){
+function getCAt($where=NULL){
+    $sql=$where == NULL ? '':$where; 
     global $link;
-    $cat=$link->prepare("SELECT * FROM `categories` ORDER BY `Ordaring` ASC");
+    $cat=$link->prepare("SELECT * FROM `categories` $sql ORDER BY `Ordaring` ASC");
     $cat->execute(array());
     $rows=$cat->fetchAll();
     if(!empty($rows)){

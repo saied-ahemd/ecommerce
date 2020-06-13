@@ -31,6 +31,7 @@ if(isset($_SESSION['username'])){
               <table class="table table-bordered text-center main-table">
                 <tr>
                   <td>#ID</td>
+                  <td>image</td>
                   <td>Username</td>
                   <td>Email</td>
                   <td>Fullname</td>
@@ -41,6 +42,7 @@ if(isset($_SESSION['username'])){
                 foreach($rows as $row){
                 echo "<tr>";
                      echo "<td>".$row["UserID"]."</td>";
+                     echo "<td> <img src= 'uploads/avatar/".$row["avatar"]."' alt='image' class='avtar'/></td>";
                      echo "<td>".$row["username"]."</td>";
                      echo "<td>".$row["Email"]."</td>";
                      echo "<td>".$row["FullName"]."</td>";
@@ -70,7 +72,7 @@ if(isset($_SESSION['username'])){
       <!-- show the form and all data inside the inputs -->
         <h1 class="text-center edit-title">Add MEMBER</h1>
         <div class="container">
-          <form class="form" action="?do=insert" method="POST">
+          <form class="form" action="?do=insert" method="POST" enctype="multipart/form-data">
           <!-- user name field -->
           <!-- hidden password for the s=user id -->
             <div class="form-group row ">
@@ -100,6 +102,15 @@ if(isset($_SESSION['username'])){
                  <input type="text" name="fullname" class="form-control col-md-6"  required="required"placeholder="Full Name" autocomplete="off">
                </div>
             </div>
+            <!-- end full name -->
+            <!-- Avatar field -->
+            <div class="form-group row ">
+               <label for="fullname" class="control-label col-sm-2">User Avatar</label>
+               <div class="col-sm-10">
+                 <input type="file" name="avatar" class="form-control col-md-6"  required="required"placeholder="Full Name" autocomplete="off"> 
+               </div>
+            </div>
+            <!-- end avatar name -->
              <!-- start button -->
              <div class="form-group row">
                <div class="save col-md-7">
@@ -114,6 +125,19 @@ if(isset($_SESSION['username'])){
       if($_SERVER['REQUEST_METHOD']=='POST'){
         echo "<h1 class='text-center edit-title'>Insert MEMBER</h1>";
         echo '<div class="container">';
+        // upload  files
+        $avatarName=$_FILES["avatar"]["name"];
+        $avatarSize=$_FILES["avatar"]["size"];
+        $avatarTmp=$_FILES["avatar"]["tmp_name"];
+        $avatarType=$_FILES["avatar"]["type"];
+        //list of allowed type to upload
+        $avatarAllowedExtention=array("jpeg","jpg","png","gif");
+
+        //explode make the string array after some thing you choose (end function )=>get the last array
+        $avatarExtention=strtolower(end(explode('.',$avatarName)));
+        if(! in_array($avatarExtention,$avatarAllowedExtention)){
+          echo "this type is not allowed";
+        }
         //get all data from the form
         $pass=$_POST["password"];
         $hasPass=sha1($_POST["password"]);
@@ -129,11 +153,20 @@ if(isset($_SESSION['username'])){
           $formError[]= 'the user feild can not be more than <strong>20 charcters</strong>';
          }
         if(empty($user)){
-         $formError[]= 'the user feild can not be empty please enter user name';
+         $formError[]= 'the user feild can not be empty please enter user name'; 
         }
         if(empty($email)){
           $formError[]= 'the email feild can not be empty please enter your email';
          }
+         if(empty($avatarName) ){
+          $formError[]= 'the avatar feild is<strong>Required </strong>';
+        }
+        if(!empty($avatarName) &&!in_array($avatarExtention,$avatarAllowedExtention)){
+          $formError[]= 'this type of the file is not  <strong>allowed </strong>';
+        }
+        if($avatarSize>4194304){
+          $formError[]= 'this file is tot<strong>Big </strong>';
+        }
          if(empty($pass)){
           $formError[]= 'the password feild can not be empty please enter  password';
          }
@@ -153,13 +186,20 @@ if(isset($_SESSION['username'])){
             redirectHome($war,'back',5);
 
           }else{
+            
+            $avatar=rand(0,10000000).'_'.$avatarName;
+            echo $avatar;
+            //this function move tmp file to the destnation you want
+            move_uploaded_file($avatarTmp,"uploads\avatar\\".$avatar);
             // update in database
-        $stmt=$link->prepare("INSERT INTO users(username,password,Email,FullName,RegStatus,Date) VALUES(:kuser,:kpass,:kemail,:kname,1,now())");
+
+        $stmt=$link->prepare("INSERT INTO users(username,password,Email,FullName,RegStatus,Date,avatar) VALUES(:kuser,:kpass,:kemail,:kname,1,now(),:kava)");
         $stmt->execute(array(
           'kuser' => $user,
           'kpass'=>$hasPass,
           'kemail'=>$email,
-          'kname'=>$fullname
+          'kname'=>$fullname,
+          'kava'=>$avatar
         )
         );
         // show success message

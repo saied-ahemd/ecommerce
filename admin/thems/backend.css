@@ -149,6 +149,11 @@ label{
     background-color: #333;
     color: #fff;
 }
+.avtar{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
 /* end members page */
 /* start category page */
 .category .cat h3{

@@ -47,7 +47,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto" style="margin-right:150px;">
       <?php
-        $catecories=getCAt();
+        $catecories=getCAt('where parent =0');
         foreach($catecories as $cat){
             echo '<li class="nav-item"><a href="categories.php?pageid='.$cat["ID"].'" class="nav-link" style="margin-right:20px;">'.$cat["Name"].'</a></li>';
         }

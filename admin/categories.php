@@ -101,6 +101,24 @@ if(isset($_SESSION['username'])){
                </div>
             </div>
             <!-- start visibility field -->
+            <!-- start parent  -->
+            <div class="form-group row ">
+               <label for="Status" class="control-label col-sm-2">Parent</label>
+               <div class="col-sm-10">
+                 <select class=" col-md-6 select-status" name="parent">
+                     <option value="0">....</option>
+                    <?php 
+                       $stmt=$link->prepare("SELECT * FROM categories WHERE parent=0");
+                       $stmt->execute();
+                       $cats=$stmt->fetchAll();
+                       foreach($cats as $cat){
+                           echo "<option value='".$cat["ID"]."'> ".$cat["Name"]." </option>";
+                       }
+                    ?>
+                 </select>
+               </div>
+            </div>
+            <!-- end parent -->
             <div class="form-group row ">
                <label for="visibility" class="control-label col-sm-2">Visible</label>
                <div class="col-sm-10">
@@ -159,6 +177,7 @@ if(isset($_SESSION['username'])){
             //store the data into varibales
               $name=$_POST['name'];
               $description=$_POST['description'];
+              $parent=$_POST["parent"];
               $ordring=$_POST['ordring'];
               $visible=$_POST['visibility'];
               $comment=$_POST['allowComment'];
@@ -180,10 +199,11 @@ if(isset($_SESSION['username'])){
                   redirectHome($war,'back',5);
               }else {
                   //insert the data in the database
-                $stmt=$link->prepare("INSERT INTO categories(Name,Description,Ordaring,Visibility,Allow_comment,Allow_ads) VALUES(:kname,:kdes,:korder,:kvisible,:kcomment,:kads)");
+                $stmt=$link->prepare("INSERT INTO categories(Name,Description,parent,Ordaring,Visibility,Allow_comment,Allow_ads) VALUES(:kname,:kdes,:kparent,:korder,:kvisible,:kcomment,:kads)");
                 $stmt->execute(array(
                   'kname' => $name,
                   'kdes'=>$description,
+                  'kparent'=>$parent,
                   'korder'=>$ordring,
                   'kvisible'=>$visible,
                   'kcomment'=>$comment,
@@ -243,6 +263,24 @@ if(isset($_SESSION['username'])){
                <label for="ordring" class="control-label col-sm-2">Ordring</label>
                <div class="col-sm-10">
                  <input type="text" name="ordring" class="form-control col-md-6" placeholder="the number of the category" autocomplete="off" value="<?php echo $row["Ordaring"]?>">
+               </div>
+            </div>
+            <!-- end ordraing feild -->
+            <!-- start parent  -->
+            <div class="form-group row ">
+               <label for="Status" class="control-label col-sm-2">Parent</label>
+               <div class="col-sm-10">
+                 <select class=" col-md-6 select-status" name="parent">
+                     <option value="0">....</option>
+                    <?php 
+                       $stmt=$link->prepare("SELECT * FROM categories WHERE parent=0");
+                       $stmt->execute();
+                       $cats=$stmt->fetchAll();
+                       foreach($cats as $cat){
+                           echo "<option value='".$cat["ID"]."'> ".$cat["Name"]." </option>";
+                       }
+                    ?>
+                 </select>
                </div>
             </div>
             <!-- start visibility field -->
@@ -308,9 +346,11 @@ if(isset($_SESSION['username'])){
         $name=$_POST['name'];
         $description=$_POST['description'];
         $ordring=$_POST['ordring'];
+        $parent=$_POST["parent"];
         $visible=$_POST['visibility'];
         $comment=$_POST['allowComment'];
         $ads=$_POST['allowaAds'];
+        
         //validate the form
         $formError=[];
          if(strlen($name)>20){
@@ -329,8 +369,8 @@ if(isset($_SESSION['username'])){
             $war= '<div class="alert alert-warning">This category Is Already Exist</div>';
             redirectHome($war,'back',5);
         }else {
-          $stmt=$link->prepare("UPDATE categories  SET Name=?, Description =?,Ordaring=?,Visibility=? ,Allow_comment=? , Allow_ads= ? WHERE ID=? ");
-          $stmt->execute([$name,$description,$ordring,$visible,$comment,$ads,$id]);
+          $stmt=$link->prepare("UPDATE categories  SET Name=?, Description =?,parent =?,Ordaring=?,Visibility=? ,Allow_comment=? , Allow_ads= ? WHERE ID=? ");
+          $stmt->execute([$name,$description,$parent,$ordring,$visible,$comment,$ads,$id]);
           // show success message
           if($stmt->RowCount()>0){
             $succ='<div class="alert alert-success">the data has been updated successfuly</div>';
